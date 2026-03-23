@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Favorite Links</title>
+    <title>Dynamic Resource Cards</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f0f2f5;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -15,73 +15,117 @@
             margin: 0;
         }
 
-        h1 { color: #333; margin-bottom: 30px; }
+        h1 { color: #1c1e21; margin-bottom: 30px; }
 
-        .card-container {
+        #card-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            max-width: 1000px;
+            max-width: 1100px;
         }
 
         .card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 250px;
-            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 260px;
+            padding: 24px;
             text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none; /* Removes underline from link */
-            color: inherit;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #4b4f56;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+            border-color: #007bff;
+        }
+
+        .card img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 8px;
         }
 
         .card h2 {
             margin: 10px 0;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: #007bff;
         }
 
         .card p {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0;
         }
     </style>
 </head>
 <body>
 
-    <h1>Useful Resources</h1>
+    <h1>My Dashboard</h1>
 
-    <div class="card-container">
-        
-        <a href="https://script.google.com/macros/s/AKfycbwe-cu_GEKuZUHroCAdrf0vU7W-KX8Xcqn2GWmlgIxk5KMOPQVT9jYukUER0hZb3V7J/exec" target="_blank" class="card">
-            <h2>CNP</h2>
-            <p>The world's most popular search engine.</p>
-        </a>
+    <div id="card-container"></div>
 
-        <a href="https://www.github.com" target="_blank" class="card">
-            <h2>GitHub</h2>
-            <p>Where the world builds software and hosts code.</p>
-        </a>
+    <script>
+        // 1. Define your data as an array of objects
+        const cardData = [
+            {
+                label: "CNP",
+                desc: "CN Picassent",
+                url: "https://script.google.com/macros/s/AKfycbwe-cu_GEKuZUHroCAdrf0vU7W-KX8Xcqn2GWmlgIxk5KMOPQVT9jYukUER0hZb3V7J/exec",
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgKgVsT9_BOxcLg1l2ocjjLL4Gc8VYpYXoEQ&s"
+            },
+            /*
+            {
+                label: "GitHub",
+                desc: "Host your code and collaborate with developers.",
+                url: "https://www.github.com",
+                img: "https://github.githubassets.com/favicons/favicon.svg"
+            },
+            {
+                label: "YouTube",
+                desc: "Watch videos and learn almost anything.",
+                url: "https://www.youtube.com",
+                img: "https://www.youtube.com/favicon.ico"
+            },
+            {
+                label: "Stack Overflow",
+                desc: "Find answers to your programming questions.",
+                url: "https://stackoverflow.com",
+                img: "https://stackoverflow.com/favicon.ico"
+            }
+            */
+        ];
 
-        <a href="https://www.wikipedia.org" target="_blank" class="card">
-            <h2>Wikipedia</h2>
-            <p>The free encyclopedia that anyone can edit.</p>
-        </a>
+        // 2. Select the container
+        const container = document.getElementById('card-container');
 
-        <a href="https://www.canva.com" target="_blank" class="card">
-            <h2>Canva</h2>
-            <p>Easy-to-use graphic design tool for everyone.</p>
-        </a>
+        // 3. Loop through the data and create elements
+        cardData.forEach(item => {
+            // Create the anchor (link) element
+            const card = document.createElement('a');
+            card.href = item.url;
+            card.target = "_blank";
+            card.className = "card";
 
-    </div>
+            // Build the internal HTML structure
+            card.innerHTML = `
+                <img src="${item.img}" alt="${item.label} logo">
+                <h2>${item.label}</h2>
+                <p>${item.desc}</p>
+            `;
+
+            // Append to the container
+            container.appendChild(card);
+        });
+    </script>
 
 </body>
 </html>
